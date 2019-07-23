@@ -7,7 +7,6 @@ import numpy as np
 import tensorflow as tf
 from keras import backend as K
 
-from data_loader.cgan_mnist_dataloader import CGanMnistDataLoader
 from data_loader.cyclegan_dataloader import CycleGanDataLoader
 from data_loader.simple_mnist_dataloader import MnistDataLoader
 from model_trainer_builder import build_model_and_trainer
@@ -22,8 +21,6 @@ def get_data_loader(config):
         return CycleGanDataLoader(config)
     elif data_loader_type == 'simple_mnist':
         return MnistDataLoader(config)
-    elif data_loader_type == 'cgan_mnist':
-        return CGanMnistDataLoader(config)
     else:
         raise ValueError(f"unknown data loader type {data_loader_type}")
 

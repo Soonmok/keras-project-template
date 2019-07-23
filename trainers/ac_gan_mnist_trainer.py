@@ -109,11 +109,11 @@ class CGanMnistTrainer(BaseTrain):
                 })
 
     def train(self):
-        train_data_generator = self.data_loader.get_train_data_generator()
+        train_data_generator = self.data_loader.get_train_data_generator_with_labels()
         steps_per_epoch = self.data_loader.get_train_data_size() // self.config.trainer.batch_size
         assert steps_per_epoch > 0
 
-        test_data_generator = self.data_loader.get_test_data_generator()
+        test_data_generator = self.data_loader.get_test_data_generator_with_labels()
         test_data_size = self.data_loader.get_test_data_size()
 
         real_label = np.ones(shape=(self.config.trainer.batch_size,), dtype=np.int32)
@@ -132,7 +132,7 @@ class CGanMnistTrainer(BaseTrain):
                 self.on_batch_begin(step, batch_logs)
 
                 real_images, labels = next(train_data_generator)
-                noise = np.random.normal(0, 1, (self.config.trainer.batch_size, 100))
+                noise = np.random.normal(0, 1, (self.config.trainer.batch_size, 90))
                 conditioned_noise = np.concatenate((noise, labels), axis=1)
                 generated_images = self.generator.predict(conditioned_noise)
                 d_real_metric_names = self.d_metric_name(True)

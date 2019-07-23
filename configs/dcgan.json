@@ -20,9 +20,9 @@
     }
   },
   "model": {
-    "structure": "simple_mnist",
+    "structure": "dc_gan",
     "generator": {
-      "model": "simple_mnist_generator",
+      "model": "generator",
       "lr": 0.0002,
       "dropout": false,
       "beta1": 0.5,
@@ -32,7 +32,7 @@
       "clipnorm": 0
     },
     "discriminator": {
-      "model": "simple_mnist_discriminator",
+      "model": "dc_gan_discriminator",
       "lr": 0.0002,
       "beta1": 0.5,
       "clipvalue": 0,

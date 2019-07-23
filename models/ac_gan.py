@@ -8,7 +8,7 @@ from base.base_model import BaseModel
 class CGan(BaseModel):
     def define_model(self, generator, discriminator, model_name):
         discriminator.trainable = False
-        latent = Input(shape=(110,), name='noise')
+        latent = Input(shape=(100,), name='noise')
         generated_image = generator(latent)
         logit, aux = discriminator(generated_image)
         return Model(inputs=latent, outputs=[logit, aux], name=model_name)
