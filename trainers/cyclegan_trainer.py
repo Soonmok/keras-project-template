@@ -142,6 +142,7 @@ class CycleGanModelTrainer(BaseTrain):
 
             epoch_logs = defaultdict(float)
             for step in range(1, steps_per_epoch + 1):
+
                 batch_logs = {'batch': step, 'size': self.config.trainer.batch_size}
                 self.on_batch_begin(step, batch_logs)
 
@@ -276,7 +277,7 @@ class CycleGanModelTrainer(BaseTrain):
                 Image.fromarray(concat_images).save(f"{output_dir}/{i // save_batch_size}.png")
 
     def sample_images(self, epoch, data_generator, data_size):
-        output_dir = f"{self.config.callbacks.predicted_dir}/{epoch+1}/"
+        output_dir = f"{self.config.callbacks.predicted_dir}/{epoch + 1}/"
         os.makedirs(output_dir, exist_ok=True)
 
         images = []

@@ -1,7 +1,7 @@
 from glob import glob
 
 import numpy as np
-from tensorpack.dataflow import RNGDataFlow, PrefetchDataZMQ, BatchData, LocallyShuffleData, LMDBDataPoint
+from tensorpack.dataflow import RNGDataFlow, PrefetchDataZMQ, BatchData, LocallyShuffleData
 
 from base.base_data_loader import BaseDataLoader
 from utils.dataflow import GeneratorToDataFlow, InfiniteDataFlow

@@ -15,7 +15,7 @@ class WithLoadOptimizerWeights(BaseModel):
         return self.model.define_model(**kargs)
 
     def build_model(self, **kargs):
-        compiled_model, parallel_compiled_model = self.model.build_model(**kargs)
+        model, parallel_compiled_model = self.model.build_model(**kargs)
         if self.config.trainer.epoch_to_continue > 0:
             # load optimizer weights if exists
             optimizer_checkpoint_path = f'{self.config.callbacks.checkpoint_dir}/{self.config.exp.name}-{self.config.trainer.epoch_to_continue:04d}-optimizer{"-" + self.model_name if self.model_name else ""}.pickle'
@@ -28,7 +28,7 @@ class WithLoadOptimizerWeights(BaseModel):
             else:
                 print(f'optimizer weights not found: {optimizer_checkpoint_path}.')
 
-        return compiled_model, parallel_compiled_model
+        return model, parallel_compiled_model
 
 
 # load model weights and optimizer weights
