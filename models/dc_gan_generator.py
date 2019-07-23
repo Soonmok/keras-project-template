@@ -1,11 +1,12 @@
-from base.base_model import BaseModel
 from keras.layers import Dense, Activation, Input, Reshape, Conv2D, UpSampling2D, BatchNormalization
-from keras.optimizers import Adam
 from keras.models import Model
+
+from base.base_model import BaseModel
+
 
 class SimpleGenerator(BaseModel):
     def define_model(self, model_name):
-        inputs = Input(shape=(100, ))
+        inputs = Input(shape=(100,))
         x = Dense(7 * 7 * 128, activation='relu')(inputs)
         x = Reshape((7, 7, 128))(x)
         x = UpSampling2D(size=2)(x)

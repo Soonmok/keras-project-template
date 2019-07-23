@@ -1,15 +1,15 @@
 from models.ac_gan import CGan
 from models.ac_gan_discriminator import CGanDiscriminator
+from models.cnn_discriminator import SimpleDiscriminator
 from models.cyclegan_combined import CycleganCombined
 from models.dc_gan import SimpleGan
-from models.patchgan_discriminator import PatchGanDiscriminator
-from models.cnn_discriminator import SimpleDiscriminator
-from models.resnet_generator import ResnetGenerator
 from models.dc_gan_generator import SimpleGenerator
+from models.patchgan_discriminator import PatchGanDiscriminator
+from models.resnet_generator import ResnetGenerator
 from models.with_load_weights import WithLoadWeights, WithLoadOptimizerWeights
 from trainers.ac_gan_mnist_trainer import CGanMnistTrainer
 from trainers.cyclegan_trainer import CycleGanModelTrainer
-from trainers.simple_mnist_trainer import MnistTrainer
+from trainers.dc_gan_mnist_trainer import MnistTrainer
 
 
 def get_generator_model_builder(config):
@@ -60,7 +60,8 @@ def build_model_and_trainer(config, data_loader):
         return combined_model, trainer
     elif model_structure == 'dc_gan':
         generator = generator_builder.define_model(model_name='generator')
-        discriminator, parallel_discriminator = WithLoadWeights(discriminator_builder, model_name='dc_gan_discriminator') \
+        discriminator, parallel_discriminator = WithLoadWeights(discriminator_builder,
+                                                                model_name='dc_gan_discriminator') \
             .build_model(model_name='dc_gan_discriminator')
         combined_model, parallel_combined_model = WithLoadWeights(SimpleGan(config), model_name='combined_model') \
             .build_model(generator=generator, discriminator=discriminator, model_name='combined_model')
@@ -76,7 +77,8 @@ def build_model_and_trainer(config, data_loader):
         return combined_model, trainer
     elif model_structure == 'ac_gan':
         generator = generator_builder.define_model(model_name='generator')
-        discriminator, parallel_discriminator = WithLoadWeights(discriminator_builder, model_name='ac_gan_discriminator') \
+        discriminator, parallel_discriminator = WithLoadWeights(discriminator_builder,
+                                                                model_name='ac_gan_discriminator') \
             .build_model(model_name='ac_gan_discriminator')
         combined_model, parallel_combined_model = WithLoadWeights(CGan(config), model_name='ac_gan_combined_model') \
             .build_model(generator=generator, discriminator=discriminator, model_name='ac_gan_combined_model')

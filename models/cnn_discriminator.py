@@ -1,7 +1,9 @@
-from base.base_model import BaseModel
-from keras.layers import Dense, Activation, Input, Flatten, Conv2D
-from keras.optimizers import Adam, SGD
+from keras.layers import Dense, Input, Flatten, Conv2D
 from keras.models import Model
+from keras.optimizers import SGD
+
+from base.base_model import BaseModel
+
 
 class SimpleDiscriminator(BaseModel):
     def define_model(self, model_name):
